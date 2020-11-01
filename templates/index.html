@@ -47,5 +47,42 @@
         chart.render();
     </script>
 
+    <script>
+        var options = {
+          series: [{
+            name: "Humidity",
+            data: {{ humidity_list|safe }}
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: true
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        title: {
+          text: 'Humidity',
+          align: 'left'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: {{ humidity_list|safe }}
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
 </body>
 </html>
