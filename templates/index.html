@@ -7,7 +7,8 @@
 </head>
 <body>
 
-    <div id="chart"></div>
+    <div id="temperature"></div>
+    <div id="humidity"></div>
 
     <script>
         var options = {
@@ -43,7 +44,7 @@
         }
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        var chart = new ApexCharts(document.querySelector("#temperature"), options);
         chart.render();
     </script>
 
@@ -81,7 +82,7 @@
         }
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        var chart = new ApexCharts(document.querySelector("#humidity"), options);
         chart.render();
     </script>
 </body>
