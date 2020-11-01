@@ -30,7 +30,7 @@ def index():
             hostname, timestamp, temperature, humidity, pressure = split_helper(line)
             timestamp_list.append(timestamp)
             temperature_list.append(temperature)
-            humidity_list
+            humidity_list.append(humidity)
 
         return render_template('index.html', temperature_list=temperature_list, timestamp_list=timestamp_list, humidity_list=humidity_list)
 
