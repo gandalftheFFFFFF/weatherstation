@@ -1,40 +1,55 @@
-import time
-import requests
+import json
 import socket
-
+import time
 from datetime import datetime
 
+try:
+    import sensor
+except:
+    print('Could not import real sensor module. Importing mock instead')
+    import mock_sensor as sensor
 
-def read_dht():
-    # placeholder
-    return 20, 65
-
-
-def read_bmp280():
-    # placeholder
-    return 997
+import requests
 
 
-while True:
+def get_config():
+    return json.load(open('config.json'))
+
+
+def main():
+
+    config = get_config()
 
     timestamp_format = '%Y-%m-%dT%H:%M:%S'
-    timestamp = datetime.now().strftime(timestamp_format)
-    temperature, humidity = read_dht()
 
-    pressure = read_bmp280()
+    DHT = sensor.DHT()
 
-    hostname = socket.gethostname()
+    while True:
+        timestamp = datetime.now().strftime(timestamp_format)
+        temperature, humidity = DHT.read_dht()
 
-    data = {
-        'hostname': hostname,
-        'timestamp': timestamp,
-        'temperature': temperature,
-        'humidity': humidity,
-        'pressure': pressure,
-    }
+        pressure = DHT.read_bmp280()
 
-    server_url = 'http://127.0.0.1:5000/data'
+        hostname = socket.gethostname()
 
-    requests.post(server_url, data=data)
+        data = {
+            'hostname': hostname,
+            'timestamp': timestamp,
+            'temperature': temperature,
+            'humidity': humidity,
+            'pressure': pressure,
+        }
 
-    time.sleep(10)
+        server_url = config['server_url']
+
+        # Attempt to send data to server
+        print(f'Sending data: {data}')
+        requests.post(server_url, data=data)
+
+        time.sleep(900)
+
+
+if __name__ == '__main__':
+    main()
+
+
