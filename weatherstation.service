@@ -1,8 +1,11 @@
 [Unit]
 Description=Weatherstation python client
+After=network.target
 
 [Service]
+User=pi
+WorkingDirectoy=/home/pi/python/weatherstation
 ExecStart=/home/pi/python/weatherstation/venv/bin/python /home/pi/python/weatherstation/client.py
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
