@@ -23,9 +23,10 @@ app = Flask(__name__)
 
 
 def query_data(conn):
-    query = """select hostname, ts as timestamp, temperature, humidity, pressure from data order by ts desc"""
+    query = """select hostname, ts as timestamp, temperature, humidity, pressure from data order by ts asc"""
     cursor = conn.cursor()
-    result = cursor.execute(query).fetchall()
+    cursor.execute(query)
+    result = cursor.fetchall()
     return result
 
 
@@ -41,8 +42,12 @@ def split_helper(line):
 
 @app.route('/')
 def index():
-    all_data = query_data(conn=con)
-    return render_template('index.html', temperature_list=temperature_list, timestamp_list=timestamp_list, humidity_list=humidity_list)
+    all_data = query_data(conn=db_connection)
+    rows = list(map(lambda x: f'{x[0]},{x[1].strftime("%Y-%m-%dT%H:%M:%S")},{x[2]},{x[3]},{x[4]}', all_data))
+
+    print(list(rows))
+    return '<br/>'.join(rows)
+    #return render_template('index.html', temperature_list=temperature_list, timestamp_list=timestamp_list, humidity_list=humidity_list)
 
 
 @app.route('/data', methods=['POST'])
