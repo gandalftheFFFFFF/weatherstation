@@ -1,0 +1,8 @@
+[Unit]
+Description=Weatherstation python client
+
+[Service]
+ExecStart=/home/pi/python/weatherstation/venv/bin/python /home/pi/python/weatherstation/client.py
+
+[Install]
+WantedBy=default.target
