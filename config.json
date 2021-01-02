@@ -1,3 +1,8 @@
 {
-  "server_url": "https://langeland.schroderp.dk/data"
+  "server_url": "http://localhost:5000/data",
+  "db_hostname": "localhost",
+  "db_username": "user",
+  "db_password": "password",
+  "db_database": "db",
+  "data_interval": 3600
 }
