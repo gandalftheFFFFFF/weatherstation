@@ -80,7 +80,7 @@ def main():
             print(f'Could not connect to server url: {server_url}. Will buffer and send later')
             buffer.add(d=data)
 
-        time.sleep(config.get('data_interval', 900))
+        time.sleep(config.get('data_interval', 10))
 
 
 if __name__ == '__main__':

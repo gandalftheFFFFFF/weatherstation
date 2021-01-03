@@ -63,10 +63,17 @@ def data():
                       (hostname, ts, temperature, humidity, pressure) 
                       values (%s, %s, %s, %s, %s)"""
 
-    cursor = db_connection.cursor()
-    cursor.execute(insert_query, (hostname, timestamp, temperature, humidity, pressure))
-    db_connection.commit()
-    cursor.close()
+    try:
+        cursor = db_connection.cursor()
+        cursor.execute(insert_query, (hostname, timestamp, temperature, humidity, pressure))
+    except:
+        print(f'Something went wrong :(')
+        print(f'Args: {",".join([hostname, timestamp, temperature, humidity, pressure])}')
+        db_connection.rollback()
+    else:
+        db_connection.commit()
+    finally:
+        cursor.close()
 
     return 'ok'
 
