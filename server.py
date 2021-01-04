@@ -23,7 +23,7 @@ app = Flask(__name__)
 
 
 def query_data(conn):
-    query = """select hostname, ts as timestamp, temperature, humidity, pressure from data order by ts asc"""
+    query = """select hostname, ts as timestamp, temperature, humidity, pressure from data order by ts desc"""
     cursor = conn.cursor()
     cursor.execute(query)
     result = cursor.fetchall()
