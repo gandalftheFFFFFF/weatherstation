@@ -55,9 +55,9 @@ def data():
     form = request.form
     hostname = form['hostname']
     timestamp = form['timestamp']
-    temperature = form['temperature']
-    humidity = form['humidity']
-    pressure = form['pressure']
+    temperature = float(form['temperature'])
+    humidity = float(form['humidity'])
+    pressure = float(form['pressure'])
 
     insert_query = """insert into data 
                       (hostname, ts, temperature, humidity, pressure) 
