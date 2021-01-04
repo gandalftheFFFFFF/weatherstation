@@ -66,10 +66,11 @@ def data():
     try:
         cursor = db_connection.cursor()
         cursor.execute(insert_query, (hostname, timestamp, temperature, humidity, pressure))
-    except:
+    except Exception as e:
         print(f'Something went wrong :(')
         print(f'Args: {",".join([hostname, timestamp, temperature, humidity, pressure])}')
         db_connection.rollback()
+        print(e)
     else:
         db_connection.commit()
     finally:
